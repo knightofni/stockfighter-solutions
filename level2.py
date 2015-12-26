@@ -53,6 +53,16 @@ def market_making(quote):
     else:
         print('2] Spread is {}, not trading'.format(quote.spread))
 
+def info(iteration):
+    if iteration % 10 == 0:
+        GM.completion()
+        ## Killing old orders
+        flush_old_orders(MM)
+        (pps, position, value) = MM.calculate_position()
+        if pps:
+            target = 0 if not GM.target_price_l2 else  GM.target_price_l2
+            print('****] Average cost : {:.2f} [target {:.2f}], shares acquired : {} - pnl: {:.2f}'.format(pps, target, position, value))
+
 
 GM = stockfighter.GameMaster()
 #gm.restart()
@@ -73,13 +83,6 @@ while True:
     dead_market_check(quote)
 
     ## Information
-    time.sleep(1)
     iteration +=1
-    if iteration % 10 == 0:
-        GM.completion()
-        ## Killing old orders
-        flush_old_orders(MM)
-        (pps, position, value) = MM.calculate_position()
-        if pps:
-            target = 0 if not GM.target_price_l2 else  GM.target_price_l2
-            print('****] Average cost : {:.2f} [target {:.2f}], shares acquired : {} - pnl: {:.2f}'.format(pps, target, position, value))
+    time.sleep(1)
+    info(iteration)
