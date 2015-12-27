@@ -1,1 +1,2 @@
-1. You can give the illusion of a tight spread with very low amount of shares
+- Solution for winning level2 (though i change the API after so it's probably broken)
+- Start of solution for level3
